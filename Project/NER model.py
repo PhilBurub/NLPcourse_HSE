@@ -260,13 +260,11 @@ class NER:
         self.tokenizer = AutoTokenizer.from_pretrained("cointegrated/rubert-tiny2", device=device)
         self.rubert_model = AutoModel.from_pretrained("cointegrated/rubert-tiny2").to(device)
 
-        if not os.path.exists('model.pth'):
-            weights_file = wget.download(weights_url, out='model.pth')
-        if not os.path.exists('tag_vocab.json'):
-            tag_vocab_file = wget.download(tag_vocab_url, out='tag_vocab.json')
+        weights_file = wget.download(weights_url, out='model.pth')
+        tag_vocab_file = wget.download(tag_vocab_url, out='tag_vocab.json')
 
-        self.model = BiLSTMCRF.load('model.pth', device)
-        self.tag_vocab = Vocab.load('tag_vocab.json')
+        self.model = BiLSTMCRF.load(weights_file, device)
+        self.tag_vocab = Vocab.load(tag_vocab_file)
 
     def get_ne(self, texts, ids):
         tokenized = self.tokenizer(texts, return_tensors='pt', padding=True).to(self.device)
@@ -308,13 +306,13 @@ class NER:
         return out
 
 
-# if __name__ == '__main__':
-#     weights = 'https://github.com/PhilBurub/NLPcourse_HSE/raw/main/Project/model.pth'
-#     tags = 'https://raw.githubusercontent.com/PhilBurub/NLPcourse_HSE/main/Project/tag_vocab.json'
-#     ner_model = NER(weights, tags)
-#
-#     text = ("Не рекомендуем сие заведение от слова совсем. Позвонили забронировать столик. Нам сказали -да на 23:00 "
-#             "вечера столик за Вами. Приезжаем в предвкушении повеселиться. Охранник не пускает у него нет информации "
-#             "что столик забронирован. Более того что у него даже не было попытки прояснить ситуацию элементарно "
-#             "вызвав администратора. Это всё свидетельствует о странности сотрудников сея заведения.")
-#     print(ner_model.get_ne([text], [3382]))
+if __name__ == '__main__':
+    weights = 'https://github.com/PhilBurub/NLPcourse_HSE/raw/main/Project/model.pth'
+    tags = 'https://raw.githubusercontent.com/PhilBurub/NLPcourse_HSE/main/Project/tag_vocab.json'
+    ner_model = NER(weights, tags)
+
+    text = ("Не рекомендуем сие заведение от слова совсем. Позвонили забронировать столик. Нам сказали -да на 23:00 "
+            "вечера столик за Вами. Приезжаем в предвкушении повеселиться. Охранник не пускает у него нет информации "
+            "что столик забронирован. Более того что у него даже не было попытки прояснить ситуацию элементарно "
+            "вызвав администратора. Это всё свидетельствует о странности сотрудников сея заведения.")
+    print(ner_model.get_ne([text], [3382]))
