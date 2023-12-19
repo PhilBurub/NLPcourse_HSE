@@ -292,7 +292,7 @@ class NER:
                 end = start + len(new_word)
                 if is_span and beginning is not None and \
                             (tag.split('-')[0] != 'I' or tag.split('-')[-1] != category):
-                    out.append((id_, texts[i][beginning:cur], beginning, cur,
+                    out.append((id_, texts[i][beginning:cur-1], beginning, cur-1,
                                 category))
                     is_span = False
 
