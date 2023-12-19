@@ -308,13 +308,13 @@ class NER:
         return out
 
 
-if __name__ == '__main__':
-    weights = 'https://github.com/PhilBurub/NLPcourse_HSE/raw/main/Project/model.pth'
-    tags = 'https://raw.githubusercontent.com/PhilBurub/NLPcourse_HSE/main/Project/tag_vocab.json'
-    ner_model = NER(weights, tags)
-
-    text = ("Не рекомендуем сие заведение от слова совсем. Позвонили забронировать столик. Нам сказали -да на 23:00 "
-            "вечера столик за Вами. Приезжаем в предвкушении повеселиться. Охранник не пускает у него нет информации "
-            "что столик забронирован. Более того что у него даже не было попытки прояснить ситуацию элементарно "
-            "вызвав администратора. Это всё свидетельствует о странности сотрудников сея заведения.")
-    print(ner_model.get_ne([text], [3382]))
+# if __name__ == '__main__':
+#     weights = 'https://github.com/PhilBurub/NLPcourse_HSE/raw/main/Project/model.pth'
+#     tags = 'https://raw.githubusercontent.com/PhilBurub/NLPcourse_HSE/main/Project/tag_vocab.json'
+#     ner_model = NER(weights, tags)
+#
+#     text = ("Не рекомендуем сие заведение от слова совсем. Позвонили забронировать столик. Нам сказали -да на 23:00 "
+#             "вечера столик за Вами. Приезжаем в предвкушении повеселиться. Охранник не пускает у него нет информации "
+#             "что столик забронирован. Более того что у него даже не было попытки прояснить ситуацию элементарно "
+#             "вызвав администратора. Это всё свидетельствует о странности сотрудников сея заведения.")
+#     print(ner_model.get_ne([text], [3382]))
